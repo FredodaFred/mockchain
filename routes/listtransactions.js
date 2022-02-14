@@ -2,7 +2,7 @@
 // * Lists all transactions in the system, not currently on blocks.
 
 // * Imports
-const Transaction = require("../src/transaction");
+const Transaction = require("../transaction.js");
 
 function listtransactions(app) {
 

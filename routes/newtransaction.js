@@ -3,7 +3,7 @@
 // * Creates a new mock transaction and adds it to the system.
 
 // * Imports
-const Transaction = require("../src/transaction");
+const Transaction = require("../transaction");
 
 function newtransaction(app) {
 
