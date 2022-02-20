@@ -11,13 +11,15 @@ app.use(morgan("dev")); // Pretty-print requests with the "dev" format
 
 // Create the port number for the server to listen on
 const port = 8080; // See: Wikipedia's List of TCP and UDP port numbers
+
 // Imports from our class modules
-const Blockchain = require("./transaction");
+const Blockchain = require("./blockchain");
 
 // Global variables
 global.difficulty = 5; // Difficulty to mine a particular block
 global.blockchain = new Blockchain(); // Our copy of the blockchain
 global.transactions = []; // Our current transactions
+
 
 require("./routes")(app);
 // Configure our server to run
