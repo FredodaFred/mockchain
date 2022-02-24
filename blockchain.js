@@ -1,13 +1,12 @@
-// ./src/blockchain.js
+//Blockchain data structure
 
-// * Contains the class definition for a blockchain.
-// * Imports
-const Block = require("./block"); // Our class definition for a block
+//include our block data structure
+const Block = require("./block");
 
 class Blockchain {
     constructor() {
-        // Chain array contains all blocks in our copy of the blockchain
-        this.chain = [new Block(Array(65).join("0"))]; // Create genesis block
+        //An array of blocks which is essentially our blockchain
+        this.chain = [new Block(Array(65).join("0"))]; // Add the first (geenesis) block
     }
 
     // Returns the last block in the chain
@@ -23,7 +22,7 @@ class Blockchain {
     addBlock() {
         // Mine a new block with the previous block's hash
         let newBlock = new Block(this.getLastBlock().hash, global.transactions);
-        // Let's add the new block to the chain, and make it immutable
+        //Adds newBlock to chain array, freezes it so it is immutable (cannot be modified anymore)
         this.chain.push(Object.freeze(newBlock));
     }
     // Validates the chain
@@ -33,7 +32,7 @@ class Blockchain {
             const currentBlock = blockchain.chain[i];
             const prevBlock = blockchain.chain[i - 1];
             
-            // Validate the current block's hash from the previous
+            //Check if the current and previous hashes are the same as what is stored in the block
             if (
                 // Check the hash, which was mined
                 currentBlock.hash !== currentBlock.getHash() ||
@@ -43,7 +42,7 @@ class Blockchain {
                 return false;
             }
 
-            // Check the hash validity
+            // Make sure the hash starts with the correct start string
             let checkString = Array(global.difficulty + 1).join("0");
             if (!currentBlock.hash.startsWith(checkString)) {
                 return false;
@@ -55,7 +54,7 @@ class Blockchain {
         return true;
     }
 
-    // Update the chain with a new blockchain
+    // Gets rid of old chain and replaces with new chain
     replaceChain(newChain) {
         // Check the length of the new chain
         if (newChain.length <= this.chain.length) return;

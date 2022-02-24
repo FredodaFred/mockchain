@@ -1,18 +1,17 @@
-// ./index.js
-// * Imports
+//Import express and morgan
 const express = require("express"); // Imports Express's class definition
 const morgan = require("morgan"); // Imports Morgan's class definition
 
 
-// Initialize express's class object
+// Create the application using express
 const app = express();
-// Tell Express to use Morgan for logging requests to the console
+// Use express for console logging
 app.use(morgan("dev")); // Pretty-print requests with the "dev" format
 
-// Create the port number for the server to listen on
-const port = 8080; // See: Wikipedia's List of TCP and UDP port numbers
+//Listen on port 8080
+const port = 8080; 
 
-// Imports from our class modules
+// Imports the blockchain datastructure we created
 const Blockchain = require("./blockchain");
 
 // Global variables
@@ -20,9 +19,9 @@ global.difficulty = 5; // Difficulty to mine a particular block
 global.blockchain = new Blockchain(); // Our copy of the blockchain
 global.transactions = []; // Our current transactions
 
-
+//use our routes (From routes folder) in our app
 require("./routes")(app);
-// Configure our server to run
+//Start the server
 app.listen(port, () => {
     // Log that our server is running in the terminal
     console.log(`Server is listening at http://localhost:${port}/`);

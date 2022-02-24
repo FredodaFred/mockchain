@@ -1,5 +1,5 @@
 // ./routes/validate.js
-// * The server validates the blockchain.
+// * The server validates the blockchain. Displays blockchain.isChainValid() as an endpoint
 
 function validate(app) {
     // Validate the server's instance of a blockchain

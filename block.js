@@ -1,16 +1,15 @@
-// ./src/block.js
+//Block data structure
 
-// * Contains the class definition for a single block.
 // * Imports
-const crypto = require("crypto"); // Used for encryption algorithms; Built-in
+const crypto = require("crypto"); // Used for encryption algorithms
 
 // Define a SHA256 hash function from our crypto library
 function SHA256(message) {
 
     return crypto
-        .createHash("sha256") // Set the hashing algorithm to SHA256
-        .update(message) // Update the hash with the message
-        .digest("hex"); // Return the hash as a hexadecimal string
+        .createHash("sha256") // Creates a sha256 hash
+        .update(message) // gives the hash a message to hash
+        .digest("hex"); // returns the output as  hex
 }
 
 class Block {
@@ -31,15 +30,16 @@ class Block {
         for (let i = 0; i < this.transactions.length; i++) {
             txStr += JSON.stringify(this.transactions[i]);
         }
-        // Hash together...
+        // Hash together... (The hash will take prevhash, timestamp, txtstr, and nonce as its message to hash)
+        // this way in validation, by having all this information, you can validate a block
         return SHA256(
             this.prevHash + // The previous hash,
             this.timestamp + // The timestamp of the block,
             txStr + // And all transactions,
-            this.nonce // And let's toss in some random nonce for fun
+            this.nonce // nonce, (number once), random number used to enhance hash 
         );
     }
-    // Mine a new block (generate a hash that works)
+    // Mine a new block (generate a hash that matches are arbitrary check string, based on global.difficulty)
     mine() {
         // Let's loop until our hash starts with a string 0...000
         //  The length of this string is set through difficulty (default: 1)
@@ -47,7 +47,7 @@ class Block {
         let tries = 0;
 
         while (!this.hash.startsWith(checkString)) {
-            // Increase the nonce so we get a whole different hash
+            // nonce will keep our necessary data, but change the outcome
             this.nonce++;
             // Recompute the entire hash
             this.hash = this.getHash();

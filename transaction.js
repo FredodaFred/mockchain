@@ -1,7 +1,8 @@
-// ./src/transaction.js
-// * Contains the class definition for a single transaction.
+//Transaction.js
+//includes the class that stores data for a transaction
+//also stores a function that generates random IPv4, and a random amount of money
 
-// Generates a random IPv4 address string as a mock address
+// Return a random IPv4 address, generated using random numbers
 function generateRandomIPv4() {
 
     let ipv4 = "";
@@ -25,11 +26,13 @@ function generateRandomIPv4() {
 
 }
 
-// Generates a random money amount as a mock amount
+// Generates a random amount of money 0 to 1000000
 function generateRandomMoney() {
    return Math.floor(Math.random() * 1000000);
 }
 
+//Transaction class
+//Needs a from address, to address, and amount of cash to instantiate
 class Transaction {
     constructor(fromAddress = "", toAddress = "", amount = 0) {
         this.fromAddress = generateRandomIPv4();
